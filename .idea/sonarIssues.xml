@@ -283,6 +283,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/factory/DataFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/factory/FeedItemFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/mapper/feed/FeedItemEntityMapperTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/dependencies.gradle">
           <value>
             <set />

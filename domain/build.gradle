@@ -1,0 +1,22 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    def devDependencies = rootProject.ext.devDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    implementation project(':common')
+
+    implementation devDependencies.rxJava
+    implementation devDependencies.rxKotlin
+    implementation devDependencies.javaxAnnotation
+    implementation devDependencies.javaxInject
+    implementation devDependencies.kotlinJdk
+
+    testImplementation testDependencies.jUnit
+    testImplementation testDependencies.assertJ
+    testImplementation testDependencies.mockitoCore
+    testImplementation testDependencies.mockitoInline
+}
+
+sourceCompatibility = rootProject.ext.sourceCompatibility
+targetCompatibility = rootProject.ext.targetCompatibility

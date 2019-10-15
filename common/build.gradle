@@ -1,0 +1,10 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    def devDependencies = rootProject.ext.devDependencies
+
+    implementation devDependencies.kotlinJdk
+}
+
+sourceCompatibility = rootProject.ext.sourceCompatibility
+targetCompatibility = rootProject.ext.targetCompatibility

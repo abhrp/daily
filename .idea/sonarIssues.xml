@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/androidTest/java/in/hopscotch/android/cache/factory/DataFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/androidTest/java/in/hopscotch/android/cache/factory/DataFactoryInstrumentation.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/androidTest/java/in/hopscotch/android/cache/factory/DepartmentFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/androidTest/java/in/hopscotch/android/cache/factory/DepartmentFactoryInstrumentation.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/androidTest/java/in/hopscotch/android/cache/sharedpreferences/department/DepartmentSharedPreferencesTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/main/java/in/hopscotch/android/cache/constants/CacheConstants.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/main/java/in/hopscotch/android/cache/impl/department/DepartmentCacheImpl.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/test/java/in/hopscotch/android/cache/factory/DepartmentFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/cache/src/test/java/in/hopscotch/android/cache/impl/department/DepartmentCacheImplTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/core/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/core/src/main/java/in/hopscotch/android/core/util/ConnectivityUtil.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/data/src/main/java/in/hopscotch/android/data/impl/department/DepartmentDataRepositoryImpl.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/dependencies.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/domain/src/main/java/in/hopscotch/android/domain/usecase/department/GetDepartmentCategories.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/application/IntentHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/di/module/UIModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/di/module/department/DepartmentModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/di/module/department/DepartmentScope.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/di/module/department/DepartmentUI.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/fragment/homepage/CollectionsFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/ui/BaseAppActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/ui/BaseUIActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/ui/department/DepartmentCategoriesListingActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/ui/util/ConnectionStateMonitor.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/hsapp/src/main/java/in/hopscotch/android/ui/util/NetworkStateChangeReceiver.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/presentation/src/main/java/in/hopscotch/android/presentation/viewmodel/department/DepartmentCategoryViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/presentation/src/main/java/in/hopscotch/android/presentation/viewmodel/exchange/ConfirmationResponseViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/presentation/src/test/java/in/hopscotch/android/presentation/factory/DepartmentFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/presentation/src/test/java/in/hopscotch/android/presentation/viewmodel/department/DepartmentCategoryViewModelTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/remote/src/main/java/in/hopscotch/android/remote/impl/department/DepartmentRemoteImpl.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/remote/src/main/java/in/hopscotch/android/remote/service/HopscotchApiServiceFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/remote/src/main/java/in/hopscotch/android/remote/service/mocks/config/DelegateProvider.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/remote/src/main/java/in/hopscotch/android/remote/service/mocks/config/HopscotchMockApiServiceFactory.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/remote/src/main/java/in/hopscotch/android/remote/service/mocks/config/HopscotchMockApiServiceFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/remote/src/main/java/in/hopscotch/android/remote/service/mocks/resources/DepartmentCategoriesMockResponse.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Apps/hs-app-android/remote/src/main/java/in/hopscotch/android/remote/service/mocks/service/DepartmentMockService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/common/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/data/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/dependencies.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/com/abhrp/daily/domain/executor/PostExecutionThread.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gradle.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/presentation/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/remote/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/settings.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

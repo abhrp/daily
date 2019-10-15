@@ -16,7 +16,7 @@ import java.lang.IllegalArgumentException
 
 @RunWith(JUnit4::class)
 class GetFeedTest {
-    
+
     private lateinit var getFeed: GetFeed
 
     @Mock

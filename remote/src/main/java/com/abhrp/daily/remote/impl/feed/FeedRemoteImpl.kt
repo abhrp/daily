@@ -14,7 +14,7 @@ class FeedRemoteImpl @Inject constructor(private val dailyServiceFactory: DailyS
      * @return Single<List<FeedDataItem>>
      */
     override fun getFeedItemData(pageNo: Int): Single<List<FeedDataItem>> {
-        return dailyServiceFactory.feedService().getFeedItems(pageNo = pageNo)
+        return dailyServiceFactory.feedService.getFeedItems(pageNo = pageNo)
             .map { data ->
                 itemMapper.mapToEntity(data.response)
             }

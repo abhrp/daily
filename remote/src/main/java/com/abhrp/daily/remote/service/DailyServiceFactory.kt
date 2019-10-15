@@ -7,8 +7,6 @@ import javax.inject.Singleton
 @Singleton
 class DailyServiceFactory @Inject constructor(private val retrofitProvider: RetrofitProvider) {
 
-    fun feedService(): FeedService {
-        return retrofitProvider.retrofitClient.create(FeedService::class.java)
-    }
+    val feedService: FeedService = retrofitProvider.retrofitClient.create(FeedService::class.java)
 
 }

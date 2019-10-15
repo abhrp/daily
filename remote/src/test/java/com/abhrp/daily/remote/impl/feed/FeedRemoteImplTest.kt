@@ -78,7 +78,7 @@ class FeedRemoteImplTest {
     }
 
     private fun stubGetFeedService() {
-        Mockito.`when`(dailyServiceFactory.feedService()).thenReturn(feedService)
+        Mockito.`when`(dailyServiceFactory.feedService).thenReturn(feedService)
     }
 
     private fun stubGetFeedResponse(pageNo: Int, response: BaseResponse<FeedItemResponse>) {

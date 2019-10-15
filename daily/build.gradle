@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -49,13 +51,66 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    def devDependencies = rootProject.ext.devDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':remote')
+    implementation project(':cache')
+    implementation project(':presentation')
+
+    implementation devDependencies.rxAndroid
+    implementation devDependencies.rxJava
+    implementation devDependencies.rxKotlin
+
+    implementation devDependencies.javaxInject
+    implementation devDependencies.javaxAnnotation
+
+    implementation devDependencies.dagger
+    implementation devDependencies.daggerSupport
+    kapt devDependencies.daggerCompiler
+    kapt devDependencies.daggerProcessor
+
+    implementation devDependencies.support
+    implementation devDependencies.supportCompat
+    implementation devDependencies.recyclerView
+    implementation devDependencies.appCompat
+    implementation devDependencies.cardView
+    implementation devDependencies.design
+    implementation devDependencies.constraintLayout
+    implementation devDependencies.constraintLayoutSolver
+    implementation devDependencies.multidex
+    implementation devDependencies.pallete
+    implementation devDependencies.legacySupport
+
+    implementation devDependencies.archRuntime
+    implementation devDependencies.archExtensions
+    kapt devDependencies.archCompiler
+
+
+    implementation devDependencies.kotlinJdk
+    implementation devDependencies.coreKtx
+    implementation devDependencies.fragmentKtx
+    implementation devDependencies.collectionKtx
+    implementation devDependencies.viewModelKtx
+
+    androidTestImplementation testDependencies.multidex
+    androidTestImplementation testDependencies.multidexInstrumentation
+    androidTestImplementation testDependencies.jUnit
+    androidTestImplementation testDependencies.mockitoCore
+    androidTestImplementation testDependencies.androidRunner
+    androidTestImplementation testDependencies.dexMaker
+    androidTestImplementation testDependencies.dexMakerMockito
+    androidTestImplementation testDependencies.supportAnnotations
+
+    testImplementation testDependencies.robolectric
+    testImplementation testDependencies.robolectricShadows
+    testImplementation testDependencies.robolectricShadowsMultidex
+    testImplementation testDependencies.androidRunner
+    testImplementation testDependencies.supportAnnotations
+    testImplementation testDependencies.jUnit
+    testImplementation testDependencies.mockitoCore
+    testImplementation testDependencies.mockitoWebServer
 }
 

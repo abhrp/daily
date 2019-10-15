@@ -5,7 +5,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DailyServiceFactory @Inject constructor(private val retrofitProvider: RetrofitProvider) {
+class DailyServiceFactory @Inject constructor(retrofitProvider: RetrofitProvider) {
 
     val feedService: FeedService = retrofitProvider.retrofitClient.create(FeedService::class.java)
 

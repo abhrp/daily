@@ -1,5 +1,6 @@
 package com.abhrp.daily.data.impl.feed
 
+import com.abhrp.daily.common.util.TimeProvider
 import com.abhrp.daily.data.mapper.feed.FeedItemEntityMapper
 import com.abhrp.daily.data.model.feed.FeedDataItem
 import com.abhrp.daily.data.repository.feed.FeedCache
@@ -13,7 +14,12 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
-class NewsFeedRepositoryImpl @Inject constructor(private val feedDataStoreFactory: FeedDataStoreFactory, private val feedCache: FeedCache, private val feedItemEntityMapper: FeedItemEntityMapper): NewsFeedRepository {
+class NewsFeedRepositoryImpl @Inject constructor(
+    private val feedDataStoreFactory: FeedDataStoreFactory,
+    private val feedCache: FeedCache,
+    private val feedItemEntityMapper: FeedItemEntityMapper,
+    private val timeProvider: TimeProvider
+) : NewsFeedRepository {
     /**
      * Gets the feed items from the data layer
      * @param isFirstPage: Determines if the request is for the very first page
@@ -26,7 +32,7 @@ class NewsFeedRepositoryImpl @Inject constructor(private val feedDataStoreFactor
             .flatMap { checkForNewRequest(it, isNewRequest) }
             .flatMap { pageNo ->
                 getDataStore(pageNo)
-                    .flatMap {dataStore ->
+                    .flatMap { dataStore ->
                         getFeedData(dataStore, pageNo)
                     }
             }
@@ -37,7 +43,11 @@ class NewsFeedRepositoryImpl @Inject constructor(private val feedDataStoreFactor
      * @param isFirstPage If it's the first request, page number is returned as one
      */
     private fun getNextPageNumber(isFirstPage: Boolean): Single<Int> {
-        return if (isFirstPage) Single.just(1) else feedCache.getCurrentPageNumber().flatMap { Single.just(it+1) }
+        return if (isFirstPage) Single.just(1) else feedCache.getCurrentPageNumber().flatMap {
+            Single.just(
+                it + 1
+            )
+        }
     }
 
     /**
@@ -46,7 +56,9 @@ class NewsFeedRepositoryImpl @Inject constructor(private val feedDataStoreFactor
      * @param isNewRequest Determines if it's a new request
      */
     private fun checkForNewRequest(pageNo: Int, isNewRequest: Boolean): Single<Int> {
-        return if (isNewRequest) feedCache.clearAllFeedItemData().andThen(Single.just(1)) else Single.just(pageNo)
+        return if (isNewRequest) feedCache.clearAllFeedItemData().andThen(Single.just(1)) else Single.just(
+            pageNo
+        )
     }
 
     /**
@@ -54,8 +66,9 @@ class NewsFeedRepositoryImpl @Inject constructor(private val feedDataStoreFactor
      * @param pageNo Page number for which to check the content in the cache
      */
     private fun getDataStore(pageNo: Int): Single<FeedDataStore> {
-        return Single.zip(feedCache.isFeedItemDataCached(pageNo), feedCache.isFeedItemDataExpired(pageNo),
-            BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> {isCached, isExpired ->
+        return Single.zip(feedCache.isFeedItemDataCached(pageNo),
+            feedCache.isFeedItemDataExpired(pageNo),
+            BiFunction<Boolean, Boolean, Pair<Boolean, Boolean>> { isCached, isExpired ->
                 Pair(isCached, isExpired)
             }).flatMap {
             Single.just(feedDataStoreFactory.getFeedDataStore(it.first, it.second))
@@ -73,8 +86,9 @@ class NewsFeedRepositoryImpl @Inject constructor(private val feedDataStoreFactor
         return dataStore.getFeedItemData(pageNo)
             .flatMap { feedData ->
                 if (dataStore is FeedRemoteDataStore) {
-                        clearDataFromCache(pageNo)
+                    clearDataFromCache(pageNo)
                         .andThen(feedCache.saveFeedItemData(pageNo, feedData))
+                        .andThen(feedCache.saveLastCacheTime(pageNo, timeProvider.currentTime))
                         .andThen(feedCache.setCurrentPageNumber(pageNo))
                         .andThen(mapToDomain(feedData))
                 } else {
@@ -90,7 +104,10 @@ class NewsFeedRepositoryImpl @Inject constructor(private val feedDataStoreFactor
      * @param pageNo Page number to cleared
      */
     private fun clearDataFromCache(pageNo: Int): Completable {
-        return if (pageNo == 1) feedCache.clearAllFeedItemData() else feedCache.clearFeedItemData(pageNo)
+        return if (pageNo == 1)
+            feedCache.clearAllFeedItemData().andThen(feedCache.clearAllCacheTime())
+        else
+            feedCache.clearFeedItemData(pageNo).andThen(feedCache.clearLastCacheTime(pageNo))
     }
 
     /**

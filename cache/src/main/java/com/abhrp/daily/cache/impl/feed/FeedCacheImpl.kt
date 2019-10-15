@@ -5,13 +5,14 @@ import com.abhrp.daily.cache.mapper.feed.FeedItemMapper
 import com.abhrp.daily.cache.model.feed.CachedTimeItem
 import com.abhrp.daily.cache.sharedpreferences.DailySharedPreferences
 import com.abhrp.daily.cache.sql.DailyDatabase
+import com.abhrp.daily.common.util.TimeProvider
 import com.abhrp.daily.data.model.feed.FeedDataItem
 import com.abhrp.daily.data.repository.feed.FeedCache
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase, private val dailySharedPreferences: DailySharedPreferences, private val itemMapper: FeedItemMapper): FeedCache {
+class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase, private val dailySharedPreferences: DailySharedPreferences, private val itemMapper: FeedItemMapper, private val timerProvider: TimeProvider): FeedCache {
 
     /**
      * Gets the feed data for a particular pageno from the cache
@@ -37,7 +38,18 @@ class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase
         return Completable.defer {
             val list = feedDataItems.map { itemMapper.mapToCache(it) }
             dailyDatabase.getFeedDao().saveFeedItems(list)
-            dailyDatabase.getCacheTimeDao().saveCacheTime(CachedTimeItem(pageNo, System.currentTimeMillis()))
+            Completable.complete()
+        }
+    }
+
+    /**
+     * Saves the last cache time for a given page number
+     * @param pageNo page number for which to save the last cache time
+     * @param currentTime current time in millis
+     */
+    override fun saveLastCacheTime(pageNo: Int, currentTime: Long): Completable {
+        return Completable.defer {
+            dailyDatabase.getCacheTimeDao().saveCacheTime(CachedTimeItem(pageNo, currentTime))
             Completable.complete()
         }
     }
@@ -49,6 +61,16 @@ class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase
     override fun clearFeedItemData(pageNo: Int): Completable {
         return Completable.defer {
             dailyDatabase.getFeedDao().clearFeedItem(pageNo)
+            Completable.complete()
+        }
+    }
+
+    /**
+     * Cleats last cache time of a page number
+     * @param pageNo Page number for which to clear the time
+     */
+    override fun clearLastCacheTime(pageNo: Int): Completable {
+        return Completable.defer {
             dailyDatabase.getCacheTimeDao().clearCacheTime(pageNo)
             Completable.complete()
         }
@@ -100,6 +122,15 @@ class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase
     override fun clearAllFeedItemData(): Completable {
         return Completable.defer {
             dailyDatabase.getFeedDao().clearAllFeedItems()
+            Completable.complete()
+        }
+    }
+
+    /**
+     * Clears all the cache time set completely
+     */
+    override fun clearAllCacheTime(): Completable {
+        return Completable.defer {
             dailyDatabase.getCacheTimeDao().clearAllCacheTime()
             Completable.complete()
         }
@@ -107,7 +138,7 @@ class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase
 
     private fun isExpired(cachedTimeItem: CachedTimeItem): Boolean {
         val cacheTime = cachedTimeItem.lastCacheTime
-        val currentTime = System.currentTimeMillis()
+        val currentTime = timerProvider.currentTime
         val expirationTime = CacheSQLConstants.CACHE_TIME_OUT.toLong()
         return currentTime - cacheTime > expirationTime
     }

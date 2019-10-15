@@ -21,10 +21,23 @@ interface FeedCache {
     fun saveFeedItemData(pageNo: Int, feedDataItems: List<FeedDataItem>): Completable
 
     /**
+     * Saves the last cache time for a given page number
+     * @param pageNo page number for which to save the last cache time
+     * @param currentTime current time in millis
+     */
+    fun saveLastCacheTime(pageNo: Int, currentTime: Long): Completable
+
+    /**
      * Clears the feed data for a particular page number
      * @param pageNo: The page no for which to clear the feed data
      */
     fun clearFeedItemData(pageNo: Int): Completable
+
+    /**
+     * Cleats last cache time of a page number
+     * @param pageNo Page number for which to clear the time
+     */
+    fun clearLastCacheTime(pageNo: Int): Completable
 
     /**
      * Determines is the feed data for a given page number is cached or not
@@ -57,4 +70,9 @@ interface FeedCache {
      * @see Completable
      */
     fun clearAllFeedItemData(): Completable
+
+    /**
+     * Clears all the cache time set completely
+     */
+    fun clearAllCacheTime(): Completable
 }

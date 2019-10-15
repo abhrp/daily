@@ -1,5 +1,7 @@
 package com.abhrp.daily.data.impl.feed
 
+import com.abhrp.daily.common.util.TimeProvider
+import com.abhrp.daily.data.factory.DataFactory
 import com.abhrp.daily.data.factory.FeedItemFactory
 import com.abhrp.daily.data.mapper.feed.FeedItemEntityMapper
 import com.abhrp.daily.data.model.feed.FeedDataItem
@@ -18,6 +20,7 @@ import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import kotlin.concurrent.timer
 
 @RunWith(JUnit4::class)
 class NewsFeedRepositoryImplTest {
@@ -34,11 +37,13 @@ class NewsFeedRepositoryImplTest {
     private lateinit var feedCache: FeedCache
     @Mock
     private lateinit var feedItemEntityMapper: FeedItemEntityMapper
+    @Mock
+    private lateinit var timerProvider: TimeProvider
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        newsFeedRepositoryImpl = NewsFeedRepositoryImpl(feedDataStoreFactory, feedCache, feedItemEntityMapper)
+        newsFeedRepositoryImpl = NewsFeedRepositoryImpl(feedDataStoreFactory, feedCache, feedItemEntityMapper, timerProvider)
     }
 
     @Test
@@ -52,6 +57,7 @@ class NewsFeedRepositoryImplTest {
         val pageNo = 1
         val isCached = false
         val isExpired = true
+        val lastCacheTime = DataFactory.randomLong
 
         stubGetCurrentPageNumber(pageNo)
         stubClearAllFeedItemData(isNewRequest, Completable.complete())
@@ -60,7 +66,10 @@ class NewsFeedRepositoryImplTest {
         stubGetDataStore(isCached, isExpired, feedRemoteDataStore)
         stubGetDataFromRemote(pageNo, feedDataItems)
         stubClearItemData(pageNo, Completable.complete())
+        stubClearAllCacheTime(Completable.complete())
         stubSaveFeedItemData(pageNo, feedDataItems, Completable.complete())
+        stubTimerProvider(lastCacheTime)
+        stubSaveLastCacheTime(pageNo, lastCacheTime, Completable.complete())
         stubSetCurrentPageNo(pageNo, Completable.complete())
         stubMapToDomain(feedDataItems, feedItems)
 
@@ -103,6 +112,7 @@ class NewsFeedRepositoryImplTest {
         val pageNo = 1
         val isCached = false
         val isExpired = true
+        val lastCacheTime = DataFactory.randomLong
 
         stubGetCurrentPageNumber(pageNo)
         stubClearAllFeedItemData(isNewRequest, Completable.complete())
@@ -111,7 +121,10 @@ class NewsFeedRepositoryImplTest {
         stubGetDataStore(isCached, isExpired, feedRemoteDataStore)
         stubGetDataFromRemote(pageNo, feedDataItems)
         stubClearItemData(pageNo, Completable.complete())
+        stubClearAllCacheTime(Completable.complete())
         stubSaveFeedItemData(pageNo, feedDataItems, Completable.complete())
+        stubTimerProvider(lastCacheTime)
+        stubSaveLastCacheTime(pageNo, lastCacheTime, Completable.complete())
         stubSetCurrentPageNo(pageNo, Completable.complete())
         stubMapToDomain(feedDataItems, feedItems)
 
@@ -190,5 +203,17 @@ class NewsFeedRepositoryImplTest {
         for (i in 0 until feedDataItems.count()) {
             Mockito.`when`(feedItemEntityMapper.mapToDomain(feedDataItems[i])).thenReturn(feedItems[i])
         }
+    }
+
+    private fun stubTimerProvider(lastCacheTime: Long) {
+        Mockito.`when`(timerProvider.currentTime).thenReturn(lastCacheTime)
+    }
+
+    private fun stubSaveLastCacheTime(pageNo: Int, lastCacheTime: Long, completable: Completable) {
+        Mockito.`when`(feedCache.saveLastCacheTime(pageNo, lastCacheTime)).thenReturn(completable)
+    }
+
+    private fun stubClearAllCacheTime(completable: Completable) {
+        Mockito.`when`(feedCache.clearAllCacheTime()).thenReturn(completable)
     }
 }

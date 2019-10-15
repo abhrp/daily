@@ -4,6 +4,8 @@ dependencies {
     def devDependencies = rootProject.ext.devDependencies
 
     implementation devDependencies.kotlinJdk
+    implementation devDependencies.javaxAnnotation
+    implementation devDependencies.javaxInject
 }
 
 sourceCompatibility = rootProject.ext.sourceCompatibility

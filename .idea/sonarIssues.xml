@@ -293,7 +293,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/impl/feed/NewsFeedRepositoryImplTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/mapper/feed/FeedItemEntityMapperTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/store/feed/FeedCacheDataStoreTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/store/feed/FeedDataStoreFactoryTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/data/src/test/java/com/abhrp/daily/data/store/feed/FeedRemoteDataStoreTest.kt">
           <value>
             <set />
           </value>

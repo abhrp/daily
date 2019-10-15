@@ -14,7 +14,15 @@ object FeedItemFactory {
     }
 
     fun getFeedItem(): FeedItem {
-        return FeedItem(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
+        return FeedItem(
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString
+        )
     }
 
     fun getFeedDataItems(count: Int): List<FeedDataItem> {
@@ -26,6 +34,15 @@ object FeedItemFactory {
     }
 
     fun getFeedDataItem(): FeedDataItem {
-        return FeedDataItem(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomInt)
+        return FeedDataItem(
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomInt
+        )
     }
 }

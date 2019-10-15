@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -38,10 +39,37 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    def devDependencies = rootProject.ext.devDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    implementation project(":common")
+    implementation project(":core")
+    implementation project(":data")
+
+    implementation devDependencies.rxJava
+    implementation devDependencies.rxKotlin
+    implementation devDependencies.javaxAnnotation
+    implementation devDependencies.javaxInject
+    implementation devDependencies.androidAnnotations
+
+    implementation devDependencies.roomRuntime
+    kapt devDependencies.roomCompiler
+    implementation devDependencies.roomRx
+
+    implementation devDependencies.kotlinJdk
+    implementation devDependencies.coreKtx
+    implementation devDependencies.collectionKtx
+
+    testImplementation testDependencies.jUnit
+    testImplementation testDependencies.mockitoCore
+    testImplementation testDependencies.mockitoInline
+    testImplementation testDependencies.assertJ
+    testImplementation testDependencies.roomTesting
+    testImplementation testDependencies.archTesting
+    testImplementation testDependencies.robolectric
+
+    androidTestImplementation testDependencies.androidTestRules
+    androidTestImplementation testDependencies.androidRunner
+    androidTestImplementation testDependencies.androidxTestCore
 }

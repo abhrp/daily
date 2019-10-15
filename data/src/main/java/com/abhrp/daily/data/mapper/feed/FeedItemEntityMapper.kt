@@ -8,10 +8,19 @@ import javax.inject.Inject
 class FeedItemEntityMapper @Inject constructor(): EntityMapper<FeedDataItem, FeedItem> {
 
     override fun mapToDomain(e: FeedDataItem): FeedItem {
-        return FeedItem(e.id, e.sectionName, e.webUrl, e.headline, e.wordCount, e.thumbnail)
+        return FeedItem(e.id, e.sectionName, e.publicationDate, e.webUrl, e.headline, e.wordCount, e.thumbnail)
     }
 
     override fun mapToEntity(d: FeedItem): FeedDataItem {
-        return FeedDataItem(d.id, d.sectionName, d.webUrl, d.headline, d.wordCount, d.thumbnail, 0)
+        return FeedDataItem(
+            d.id,
+            d.sectionName,
+            d.publicationDate,
+            d.webUrl,
+            d.headline,
+            d.wordCount,
+            d.thumbnail,
+            0
+        )
     }
 }

@@ -69,6 +69,8 @@ ext {
             roomCompiler          : "androidx.room:room-compiler:${roomVersion}",
             roomRx                : "androidx.room:room-rxjava2:${roomVersion}",
 
+            androidAnnotations    : "androidx.annotation:annotation:1.0.2",
+
             //ARCH COMPONENTS
             archExtensions        : "androidx.lifecycle:lifecycle-extensions:${archComponents}",
             archRuntime           : "androidx.lifecycle:lifecycle-runtime:${archComponents}",

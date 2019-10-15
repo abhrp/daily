@@ -208,6 +208,61 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/constants/CacheSQLConstants.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/dao/feed/CacheTimeDao.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/dao/feed/FeedDao.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/impl/feed/FeedCacheImpl.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/mapper/CacheEntityMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/mapper/CacheMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/mapper/feed/FeedItemMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/model/feed/CachedFeedItem.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/model/feed/CachedTimeItem.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/sharedpreferences/DailySharedPreferences.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/main/java/com/abhrp/daily/cache/sql/DailyDatabase.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/common/build.gradle">
           <value>
             <set />

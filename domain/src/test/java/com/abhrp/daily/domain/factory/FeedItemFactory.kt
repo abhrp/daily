@@ -13,6 +13,14 @@ object FeedItemFactory {
     }
 
     private fun getFeedItem(): FeedItem {
-        return FeedItem(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
+        return FeedItem(
+            DataFactory.randomString,
+            DataFactory.randomString,
+            "",
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString,
+            DataFactory.randomString
+        )
     }
 }

@@ -213,6 +213,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/common/src/main/java/com/abhrp/daily/common/ApplicationExceptions.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/core/build.gradle">
           <value>
             <set />
@@ -234,6 +239,41 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/domain/src/main/java/com/abhrp/daily/domain/executor/PostExecutionThread.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/com/abhrp/daily/domain/model/feed/FeedItem.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/com/abhrp/daily/domain/repository/feed/NewsFeedRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/com/abhrp/daily/domain/usecase/SingleUseCase.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/main/java/com/abhrp/daily/domain/usecase/feed/GetFeed.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/com/abhrp/daily/domain/factory/DataFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/com/abhrp/daily/domain/factory/FeedItemFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/domain/src/test/java/com/abhrp/daily/domain/usecase/feed/GetFeedTest.kt">
           <value>
             <set />
           </value>

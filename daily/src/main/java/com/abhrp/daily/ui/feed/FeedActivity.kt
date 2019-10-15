@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.abhrp.daily.R
-import com.abhrp.daily.core.util.AppLogger
+import com.abhrp.daily.common.util.AppLogger
 import com.abhrp.daily.di.ViewModelFactory
 import com.abhrp.daily.presentation.state.ResourceState
 import com.abhrp.daily.presentation.viewmodel.feed.FeedViewModel
@@ -19,7 +19,7 @@ class FeedActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     @Inject
-    lateinit var appLogger: AppLogger
+    lateinit var logger: AppLogger
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class FeedActivity : BaseActivity() {
                 }
                 ResourceState.SUCCESS -> {
                     refreshLayout.isRefreshing = false
-                    appLogger.logDebug("Feed Items ${data.data.toString()}")
+                    logger.logDebug("Feed Items ${data.data.toString()}")
                 }
                 ResourceState.ERROR -> {
                     refreshLayout.isRefreshing = false

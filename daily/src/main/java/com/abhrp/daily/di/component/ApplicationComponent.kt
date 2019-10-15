@@ -18,6 +18,7 @@ import javax.inject.Singleton
         CommonProvider::class,
         PresentationModule::class,
         CacheModule::class,
+        CoreProvider::class,
         UIModule::class
     ]
 )

@@ -74,8 +74,6 @@ dependencies {
 
     implementation devDependencies.dagger
     implementation devDependencies.daggerSupport
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     kapt devDependencies.daggerCompiler
     kapt devDependencies.daggerProcessor
 
@@ -100,6 +98,19 @@ dependencies {
     implementation devDependencies.fragmentKtx
     implementation devDependencies.collectionKtx
     implementation devDependencies.viewModelKtx
+
+    implementation devDependencies.okhttp
+    implementation devDependencies.okhttpLogger
+    implementation devDependencies.okhttpUrlConnection
+    implementation devDependencies.retrofit
+    implementation devDependencies.retrofitConverter
+    implementation devDependencies.moshiRetrofit
+    implementation devDependencies.retrofitAdapter
+    implementation devDependencies.retrofitAdapter2
+
+    implementation devDependencies.roomRuntime
+    kapt devDependencies.roomCompiler
+    implementation devDependencies.roomRx
 
     androidTestImplementation testDependencies.multidex
     androidTestImplementation testDependencies.multidexInstrumentation

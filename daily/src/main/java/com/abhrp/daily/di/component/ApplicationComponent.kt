@@ -7,15 +7,17 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
-        AndroidInjectionModule::class,
+        AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         CommonProvider::class,
         PresentationModule::class,
+        CacheModule::class,
         UIModule::class
     ]
 )

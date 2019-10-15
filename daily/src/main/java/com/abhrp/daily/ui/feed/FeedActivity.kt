@@ -30,6 +30,7 @@ class FeedActivity : BaseActivity() {
         }
         feedViewModel = ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         observeFeed()
+        fetchFeedData()
     }
 
     private fun observeFeed() {
@@ -47,6 +48,10 @@ class FeedActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    private fun fetchFeedData() {
+        feedViewModel.getFeed(true, true)
     }
 
     override fun online() {

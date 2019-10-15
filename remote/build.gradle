@@ -1,7 +1,37 @@
 apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def devDependencies = rootProject.ext.devDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    implementation project(':data')
+    implementation project(':common')
+
+    implementation devDependencies.kotlinJdk
+    implementation devDependencies.rxJava
+    implementation devDependencies.rxKotlin
+    implementation devDependencies.javaxAnnotation
+    implementation devDependencies.javaxInject
+    implementation devDependencies.okhttp
+    implementation devDependencies.okhttpLogger
+    implementation devDependencies.okhttpUrlConnection
+    implementation devDependencies.retrofit
+    implementation devDependencies.retrofitConverter
+    implementation devDependencies.moshiRetrofit
+    implementation devDependencies.retrofitAdapter
+    implementation devDependencies.retrofitAdapter2
+    implementation devDependencies.moshi
+
+    kapt devDependencies.moshiCodeGen
+
+    testImplementation testDependencies.jUnit
+    testImplementation testDependencies.mockitoKotlin
+    testImplementation testDependencies.mockitoCore
+    testImplementation testDependencies.mockitoInline
+    testImplementation testDependencies.assertJ
+    testImplementation testDependencies.androidTestRules
+    testImplementation testDependencies.androidRunner
 }
 
 sourceCompatibility = rootProject.ext.sourceCompatibility

@@ -94,7 +94,7 @@ ext {
             collectionKtx         : "androidx.collection:collection-ktx:1.0.0",
             viewModelKtx          : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0",
 
-            trueTime              : "com.github.instacart.truetime-android:library:3.4",
+            logger                : "com.orhanobut:logger:2.2.0",
     ]
 
     testDependencies = [

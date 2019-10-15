@@ -1,2 +1,2 @@
-include ':app', ':domain', ':data', ':remote', ':common', ':core', ':cache', ':presentation'
+include ':daily', ':domain', ':data', ':remote', ':common', ':core', ':cache', ':presentation'
 rootProject.name='Daily'

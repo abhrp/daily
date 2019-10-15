@@ -263,6 +263,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/cache/src/test/java/com/abhrp/daily/cache/factory/DataFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/test/java/com/abhrp/daily/cache/factory/FeedItemFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/test/java/com/abhrp/daily/cache/mapper/feed/FeedItemMapperTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/cache/src/test/java/com/abhrp/daily/cache/sharedpreferences/DailySharedPreferencesTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/common/build.gradle">
           <value>
             <set />

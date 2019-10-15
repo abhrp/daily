@@ -68,6 +68,7 @@ dependencies {
     testImplementation testDependencies.roomTesting
     testImplementation testDependencies.archTesting
     testImplementation testDependencies.robolectric
+    testImplementation testDependencies.androidxTestCore
 
     androidTestImplementation testDependencies.androidTestRules
     androidTestImplementation testDependencies.androidRunner

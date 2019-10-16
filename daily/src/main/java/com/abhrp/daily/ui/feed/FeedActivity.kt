@@ -1,6 +1,8 @@
 package com.abhrp.daily.ui.feed
 
+import android.os.Build
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.abhrp.daily.R
@@ -21,12 +23,33 @@ class FeedActivity : BaseActivity() {
     @Inject
     lateinit var logger: AppLogger
 
+    private var isOnline:Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
+        setSupportActionBar(toolbar as Toolbar)
+        setUpSwipeLayout()
         feedViewModel = ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         observeFeed()
-        fetchFeedData()
+//        fetchFeedData()
+    }
+
+    private fun setUpSwipeLayout() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            refreshLayout.setColorSchemeColors(resources.getColor(R.color.colorPrimary, null))
+        } else {
+            @Suppress("DEPRECATION")
+            refreshLayout.setColorSchemeColors(resources.getColor(R.color.colorPrimary))
+        }
+
+        refreshLayout.setOnRefreshListener {
+            if (isOnline) {
+
+            } else {
+
+            }
+        }
     }
 
     private fun observeFeed() {
@@ -51,10 +74,12 @@ class FeedActivity : BaseActivity() {
     }
 
     override fun online() {
-
+        if(!isOnline) {
+            isOnline = true
+        }
     }
 
     override fun offline() {
-
+        isOnline = false
     }
 }

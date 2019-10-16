@@ -85,15 +85,19 @@ class NewsFeedRepositoryImpl @Inject constructor(
     private fun getFeedData(dataStore: FeedDataStore, pageNo: Int): Single<List<FeedItem>> {
         return dataStore.getFeedItemData(pageNo)
             .flatMap { feedData ->
-                if (dataStore is FeedRemoteDataStore) {
-                    clearDataFromCache(pageNo)
-                        .andThen(feedCache.saveFeedItemData(pageNo, feedData))
-                        .andThen(feedCache.saveLastCacheTime(pageNo, timeProvider.currentTime))
-                        .andThen(feedCache.setCurrentPageNumber(pageNo))
-                        .andThen(mapToDomain(feedData))
+                if (feedData.isNotEmpty()) {
+                    if (dataStore is FeedRemoteDataStore) {
+                        clearDataFromCache(pageNo)
+                            .andThen(feedCache.saveFeedItemData(pageNo, feedData))
+                            .andThen(feedCache.saveLastCacheTime(pageNo, timeProvider.currentTime))
+                            .andThen(feedCache.setCurrentPageNumber(pageNo))
+                            .andThen(mapToDomain(feedData))
+                    } else {
+                        feedCache.setCurrentPageNumber(pageNo)
+                            .andThen(mapToDomain(feedData))
+                    }
                 } else {
-                    feedCache.setCurrentPageNumber(pageNo)
-                        .andThen(mapToDomain(feedData))
+                    Single.just(emptyList())
                 }
             }
     }

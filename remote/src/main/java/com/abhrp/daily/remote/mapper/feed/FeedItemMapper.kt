@@ -10,7 +10,7 @@ class FeedItemMapper @Inject constructor(): RemoteEntityMapper<FeedItemResponse,
     override fun mapToEntity(response: FeedItemResponse): List<FeedDataItem> {
         val pageNo = response.pageNo
         return response.feedItems.map {
-            FeedDataItem(it.id, it.sectionName, it.publicationDate, it.webUrl, it.fields.headline, it.fields.wordCount, it.fields.thumbnail, pageNo)
+            FeedDataItem(it.id, it.sectionName, it.publicationDate, it.webUrl, it.fields.headline, it.fields.wordCount ?: "", it.fields.thumbnail ?: "", pageNo)
         }
     }
 }

@@ -5,6 +5,7 @@ import com.abhrp.daily.cache.mapper.feed.FeedItemMapper
 import com.abhrp.daily.cache.model.feed.CachedTimeItem
 import com.abhrp.daily.cache.sharedpreferences.DailySharedPreferences
 import com.abhrp.daily.cache.sql.DailyDatabase
+import com.abhrp.daily.common.util.AppLogger
 import com.abhrp.daily.common.util.TimeProvider
 import com.abhrp.daily.data.model.feed.FeedDataItem
 import com.abhrp.daily.data.repository.feed.FeedCache
@@ -13,6 +14,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase, private val dailySharedPreferences: DailySharedPreferences, private val itemMapper: FeedItemMapper, private val timerProvider: TimeProvider): FeedCache {
+
+    @Inject
+    lateinit var logger: AppLogger
 
     /**
      * Gets the feed data for a particular pageno from the cache
@@ -26,7 +30,9 @@ class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase
                 cachedItem.map {
                     itemMapper.mapToEntity(it)
                 }
-            }
+            }.doOnError {
+                logger.logThrowable(it)
+            }.onErrorReturnItem(emptyList())
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.abhrp.daily.remote.impl.feed
 
+import com.abhrp.daily.common.util.AppLogger
 import com.abhrp.daily.data.model.feed.FeedDataItem
 import com.abhrp.daily.data.repository.feed.FeedRemote
 import com.abhrp.daily.remote.mapper.feed.FeedItemMapper
@@ -8,6 +9,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class FeedRemoteImpl @Inject constructor(private val dailyServiceFactory: DailyServiceFactory, private val itemMapper: FeedItemMapper): FeedRemote {
+
+    @Inject
+    lateinit var logger: AppLogger
+
     /**
      * Gets the feed data from the remote layer
      * @param pageNo: Page number for which to get the feed data
@@ -17,6 +22,10 @@ class FeedRemoteImpl @Inject constructor(private val dailyServiceFactory: DailyS
         return dailyServiceFactory.feedService.getFeedItems(pageNo = pageNo)
             .map { data ->
                 itemMapper.mapToEntity(data.response)
+            }.doOnError {
+                logger.logThrowable(it)
+            }.onErrorReturn {
+                emptyList()
             }
     }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abhrp.daily.R
 import com.abhrp.daily.common.util.AppLogger
+import com.abhrp.daily.core.components.RecyclerViewPaginationListener
 import com.abhrp.daily.core.components.VerticalItemDecoration
 import com.abhrp.daily.core.util.PixelHelper
 import com.abhrp.daily.di.ViewModelFactory
@@ -37,6 +38,12 @@ class FeedActivity : BaseActivity() {
     lateinit var pixelHelper: PixelHelper
 
     private var isOnline:Boolean = true
+    private var paginationHandler: PaginationHandler? = null
+
+    private var isLoading: Boolean = false
+    private var firstPage: Boolean = true
+    private var newRequest: Boolean = false
+    private var errorOrDone: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +58,15 @@ class FeedActivity : BaseActivity() {
     }
 
     private fun setUpListView() {
-        feedListView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        feedListView.layoutManager = layoutManager
         feedListView.addItemDecoration(VerticalItemDecoration(pixelHelper.pixelFromDp(8)))
+
+        paginationHandler = PaginationHandler(layoutManager)
+        paginationHandler?.let {
+            feedListView.addOnScrollListener(it)
+        }
+
         feedListView.adapter = feedAdapter
     }
 
@@ -70,7 +84,9 @@ class FeedActivity : BaseActivity() {
 
         refreshLayout.setOnRefreshListener {
             if (isOnline) {
-
+                newRequest = true
+                firstPage = true
+                fetchFeedData()
             } else {
 
             }
@@ -81,24 +97,36 @@ class FeedActivity : BaseActivity() {
         feedViewModel.observeFeed().observe(this, Observer {resource ->
             when(resource.status) {
                 ResourceState.LOADING -> {
-
+                    isLoading = true
                 }
                 ResourceState.SUCCESS -> {
                     refreshLayout.isRefreshing = false
+                    isLoading = false
+                    firstPage = false
                     resource.data?.let { data ->
-                        val feedUIItemsList = data.map { feedUIMapper.mapToUIView(it) }
-                        feedAdapter.addFeedItems(feedUIItemsList)
+                        if(data.isNotEmpty()) {
+                            val feedUIItemsList = data.map { feedUIMapper.mapToUIView(it) }
+                            if (newRequest) {
+                                feedAdapter.refreshFeedItems()
+                                newRequest = false
+                            }
+                            feedAdapter.addFeedItems(feedUIItemsList)
+                        } else {
+                            errorOrDone = true
+                        }
                     }
                 }
                 ResourceState.ERROR -> {
                     refreshLayout.isRefreshing = false
+                    isLoading = false
+                    errorOrDone = true
                 }
             }
         })
     }
 
     private fun fetchFeedData() {
-        feedViewModel.getFeed(true, false)
+        feedViewModel.getFeed(firstPage, newRequest)
     }
 
     override fun online() {
@@ -114,6 +142,9 @@ class FeedActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         feedAdapter.feedItemClickListener = null
+        paginationHandler?.let {
+            feedListView.removeOnScrollListener(it)
+        }
     }
 
     private inner class ClickHandler: FeedItemClickListener {
@@ -124,5 +155,20 @@ class FeedActivity : BaseActivity() {
         override fun feedItemClicked(feedItem: FeedUIItem) {
 
         }
+    }
+
+    private inner class PaginationHandler(layoutManager: LinearLayoutManager): RecyclerViewPaginationListener(layoutManager) {
+        override fun onLoadNextPage() {
+            fetchFeedData()
+        }
+
+        override fun isLastPage(): Boolean {
+            return errorOrDone
+        }
+
+        override fun isLoading(): Boolean {
+            return isLoading
+        }
+
     }
 }

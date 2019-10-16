@@ -39,6 +39,11 @@ class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHo
         notifyDataSetChanged()
     }
 
+    fun refreshFeedItems() {
+        feedItems.clear()
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         /**
@@ -46,13 +51,8 @@ class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHo
          * @param feedItem FeedItem model to bind to the ui
          */
         fun bind(feedItem: FeedUIItem) {
-            Picasso.get()
-                .load(feedItem.thumbnail)
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
-                .transform(RoundedCornersTransformation(pixelHelper.pixelFromDp(8), 0))
-                .transform(ColorFilterTransformation(thumbnail.context.resources.getColor(R.color.colorImage)))
-                .into(thumbnail)
+
+            addImageToFeedItem(feedItem.thumbnail)
 
             sectionName.text = feedItem.sectionName
             elapsedTime.text = feedItem.date
@@ -60,6 +60,18 @@ class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHo
 
             feedItemContainer.setOnClickListener {
                 feedItemClickListener?.feedItemClicked(feedItem)
+            }
+        }
+
+        private fun addImageToFeedItem(imageUrl: String) {
+            if (imageUrl.isNotEmpty()) {
+                Picasso.get()
+                    .load(imageUrl)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .transform(RoundedCornersTransformation(pixelHelper.pixelFromDp(8), 0))
+                    .transform(ColorFilterTransformation(thumbnail.context.resources.getColor(R.color.colorImage)))
+                    .into(thumbnail)
             }
         }
     }

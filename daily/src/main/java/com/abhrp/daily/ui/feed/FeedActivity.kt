@@ -24,10 +24,6 @@ class FeedActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
-        supportActionBar?.run {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
         feedViewModel = ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         observeFeed()
         fetchFeedData()

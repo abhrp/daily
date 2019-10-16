@@ -18,6 +18,7 @@ import com.abhrp.daily.model.feed.FeedUIItem
 import com.abhrp.daily.presentation.state.ResourceState
 import com.abhrp.daily.presentation.viewmodel.feed.FeedViewModel
 import com.abhrp.daily.ui.base.BaseActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
@@ -44,6 +45,8 @@ class FeedActivity : BaseActivity() {
     private var firstPage: Boolean = true
     private var newRequest: Boolean = false
     private var errorOrDone: Boolean = false
+
+    private var offLineSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +91,7 @@ class FeedActivity : BaseActivity() {
                 firstPage = true
                 fetchFeedData()
             } else {
-
+                refreshLayout.isRefreshing = false
             }
         }
     }
@@ -133,10 +136,29 @@ class FeedActivity : BaseActivity() {
         if(!isOnline) {
             isOnline = true
         }
+        dismissOfflineSnackBar()
     }
 
     override fun offline() {
         isOnline = false
+        showOffLineSnackBar()
+    }
+
+    private fun showOffLineSnackBar() {
+        offLineSnackbar = Snackbar.make(feedContainer, "No internet connection", Snackbar.LENGTH_INDEFINITE)
+        offLineSnackbar?.setAction("Dismiss") {
+            offLineSnackbar?.dismiss()
+        }
+        offLineSnackbar?.show()
+    }
+
+    private fun dismissOfflineSnackBar() {
+        offLineSnackbar?.dismiss()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        dismissOfflineSnackBar()
     }
 
     override fun onDestroy() {
@@ -145,6 +167,7 @@ class FeedActivity : BaseActivity() {
         paginationHandler?.let {
             feedListView.removeOnScrollListener(it)
         }
+        dismissOfflineSnackBar()
     }
 
     private inner class ClickHandler: FeedItemClickListener {

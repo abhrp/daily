@@ -8,5 +8,5 @@ import javax.inject.Singleton
 class DailyServiceFactory @Inject constructor(retrofitProvider: RetrofitProvider) {
 
     val feedService: FeedService = retrofitProvider.retrofitClient.create(FeedService::class.java)
-
+    val detailService: DetailService = retrofitProvider.retrofitClient.create(DetailService::class.java)
 }

@@ -48,6 +48,6 @@ object FeedItemFactory {
     }
 
     fun getFields(): Fields {
-        return Fields(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
+        return Fields(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
     }
 }

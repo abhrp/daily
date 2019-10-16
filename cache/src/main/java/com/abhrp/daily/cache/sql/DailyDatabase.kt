@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.abhrp.daily.cache.dao.detail.NewsDetailDao
 import com.abhrp.daily.cache.dao.feed.CacheTimeDao
 import com.abhrp.daily.cache.dao.feed.FeedDao
 import com.abhrp.daily.cache.model.feed.CachedFeedItem
@@ -13,6 +14,7 @@ import com.abhrp.daily.cache.model.feed.CachedTimeItem
 abstract class DailyDatabase: RoomDatabase() {
     abstract fun getFeedDao(): FeedDao
     abstract fun getCacheTimeDao(): CacheTimeDao
+    abstract fun getNewsDetailDao(): NewsDetailDao
 
     companion object {
         private var INSTANCE: DailyDatabase? = null

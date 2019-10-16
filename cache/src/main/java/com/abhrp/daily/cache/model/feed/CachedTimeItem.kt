@@ -11,6 +11,6 @@ data class CachedTimeItem(
     @ColumnInfo(name = CacheSQLConstants.COL_PAGE_NO)
     val pageNo: Int,
 
-    @ColumnInfo(name = CacheSQLConstants.LAST_CACHE_TIME)
+    @ColumnInfo(name = CacheSQLConstants.COL_LAST_CACHE_TIME)
     val lastCacheTime: Long
 )

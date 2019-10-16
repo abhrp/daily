@@ -4,6 +4,7 @@ import com.abhrp.daily.common.util.AppLogger
 import com.abhrp.daily.data.model.feed.FeedDataItem
 import com.abhrp.daily.data.repository.feed.FeedRemote
 import com.abhrp.daily.remote.mapper.feed.FeedItemMapper
+import com.abhrp.daily.remote.model.feed.FeedItem
 import com.abhrp.daily.remote.service.DailyServiceFactory
 import io.reactivex.Single
 import javax.inject.Inject

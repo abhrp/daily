@@ -1,5 +1,6 @@
 package com.abhrp.daily.cache.model.feed
 
+import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -33,14 +34,17 @@ data class CachedFeedItem(
     val thumbnail: String,
 
     @ColumnInfo(name = CacheSQLConstants.COL_BODY)
+    @Nullable
     val body: String?,
 
     @ColumnInfo(name = CacheSQLConstants.COL_BYLINE)
+    @Nullable
     val byline: String?,
 
     @ColumnInfo(name = CacheSQLConstants.COL_PAGE_NO)
     val pageNo: Int,
 
-    @ColumnInfo(name = CacheSQLConstants.LAST_CACHE_TIME)
+    @ColumnInfo(name = CacheSQLConstants.COL_LAST_CACHE_TIME)
+    @Nullable
     val lastCacheTime: Long?
 )

@@ -15,7 +15,7 @@ object CacheSQLConstants {
     const val COL_BYLINE = "byline"
 
     const val TABLE_CACHE_TIME = "cache_time"
-    const val LAST_CACHE_TIME = "last_cache_time"
+    const val COL_LAST_CACHE_TIME = "last_cache_time"
 
     const val CACHE_TIME_OUT = 60 * 60 * 1000
 
@@ -29,6 +29,6 @@ object CacheSQLConstants {
     const val DELETE_CACHE_ITEM = "delete from $TABLE_CACHE_TIME where $COL_PAGE_NO=:pageNo"
     const val DELETE_ALL_CACHE = "delete from $TABLE_CACHE_TIME"
 
-    const val SELECT_ARTICLE = "select * from $TABLE_ARTICLE where $COL_ARTICLE_ID=:id"
-    const val SELECT_ARTICLE_CACHE = "select $LAST_CACHE_TIME from $TABLE_ARTICLE where $COL_ARTICLE_ID=:id"
+    const val SELECT_NEWS_DETAIL = "select * from $TABLE_ARTICLE where $COL_ARTICLE_ID=:id"
+    const val UPDATE_WITH_DETAIL = "update $TABLE_ARTICLE set $COL_BODY=:body, $COL_BYLINE=:byline, $COL_LAST_CACHE_TIME=:lastCacheTime where $COL_ARTICLE_ID=:id"
 }

@@ -3,6 +3,8 @@ package com.abhrp.daily.ui.feed
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +21,7 @@ import com.abhrp.daily.model.feed.FeedUIItem
 import com.abhrp.daily.presentation.state.ResourceState
 import com.abhrp.daily.presentation.viewmodel.feed.FeedViewModel
 import com.abhrp.daily.ui.base.BaseActivity
+import com.abhrp.daily.ui.detail.NewsDetailActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
@@ -181,13 +184,18 @@ class FeedActivity : BaseActivity() {
         dismissOfflineSnackBar()
     }
 
+    private fun startNewsDetailActivity(feedItem: FeedUIItem) {
+        val newIntent = NewsDetailActivity.newIntent(this, feedItem.id, feedItem.thumbnail, feedItem.headline)
+        startActivity(newIntent)
+    }
+
     private inner class ClickHandler: FeedItemClickListener {
         /**
          * Will be called when a user clicks on any news article
          * @param feedItem FeedUIItem object which is clicked
          */
         override fun feedItemClicked(feedItem: FeedUIItem) {
-
+            startNewsDetailActivity(feedItem)
         }
     }
 
@@ -203,6 +211,5 @@ class FeedActivity : BaseActivity() {
         override fun isLoading(): Boolean {
             return isLoading
         }
-
     }
 }

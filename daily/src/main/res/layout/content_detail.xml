@@ -8,15 +8,68 @@
     tools:context=".ui.detail.NewsDetailActivity"
     tools:showIn="@layout/activity_news_detail">
 
-    <TextView
-        android:id="@+id/newsBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textSize="16sp"
-        android:fontFamily="@font/muli_regular"
-        android:lineSpacingExtra="2sp"
-        android:letterSpacing="0.02"
-        android:textColor="@color/colorText"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detailsContentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/detailHealine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/muli_semibold"
+            android:maxLines="3"
+            android:minLines="1"
+            android:padding="4dp"
+            android:textColor="@color/colorText"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="New £20 note featuring JMW Turner revealed by the Bank of England" />
+
+        <TextView
+            android:id="@+id/byline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/muli_semibold"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            android:padding="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailHealine"
+            tools:text="By William Farell" />
+
+        <TextView
+            android:id="@+id/newsBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/muli_regular"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="2sp"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/byline"
+            tools:text="@string/large_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.core.widget.NestedScrollView>

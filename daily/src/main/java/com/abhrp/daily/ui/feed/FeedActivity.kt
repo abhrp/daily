@@ -50,7 +50,6 @@ class FeedActivity : BaseActivity() {
     private var newRequest: Boolean = false
     private var errorOrDone: Boolean = false
 
-    private var offLineSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,6 +129,9 @@ class FeedActivity : BaseActivity() {
                 }
                 ResourceState.ERROR -> {
                     refreshLayout.isRefreshing = false
+                    if (isOnline) {
+                        showError(getString(R.string.error_news_feed))
+                    }
                     isLoading = false
                     errorOrDone = true
                 }
@@ -155,24 +157,7 @@ class FeedActivity : BaseActivity() {
 
     override fun offline() {
         isOnline = false
-        showOffLineSnackBar()
-    }
-
-    private fun showOffLineSnackBar() {
-        offLineSnackbar = Snackbar.make(feedContainer, getString(R.string.no_internet_message), Snackbar.LENGTH_INDEFINITE)
-        offLineSnackbar?.setAction(getString(R.string.action_dismiss)) {
-            offLineSnackbar?.dismiss()
-        }
-        offLineSnackbar?.show()
-    }
-
-    private fun dismissOfflineSnackBar() {
-        offLineSnackbar?.dismiss()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        dismissOfflineSnackBar()
+        showOffLineSnackBar(feedContainer)
     }
 
     override fun onDestroy() {
@@ -181,11 +166,10 @@ class FeedActivity : BaseActivity() {
         paginationHandler?.let {
             feedListView.removeOnScrollListener(it)
         }
-        dismissOfflineSnackBar()
     }
 
     private fun startNewsDetailActivity(feedItem: FeedUIItem) {
-        val newIntent = NewsDetailActivity.newIntent(this, feedItem.id, feedItem.thumbnail, feedItem.headline)
+        val newIntent = NewsDetailActivity.newIntent(this, feedItem.id, feedItem.thumbnail, feedItem.headline, feedItem.sectionName)
         startActivity(newIntent)
     }
 
@@ -201,7 +185,9 @@ class FeedActivity : BaseActivity() {
 
     private inner class PaginationHandler(layoutManager: LinearLayoutManager): RecyclerViewPaginationListener(layoutManager) {
         override fun onLoadNextPage() {
-            fetchFeedData()
+            if (isOnline) {
+                fetchFeedData()
+            }
         }
 
         override fun isLastPage(): Boolean {

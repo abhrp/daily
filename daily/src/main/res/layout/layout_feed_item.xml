@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@drawable/background_feed_item"
-    android:elevation="2dp"
+    android:foreground="?selectableItemBackgroundBorderless"
+    app:elevation="4dp"
     android:padding="1dp">
 
     <ImageView

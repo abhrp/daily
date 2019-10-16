@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <font
-        android:font="@font/indieflower"
-        android:fontStyle="normal"
-        app:font="@font/indieflower"
-        app:fontStyle="normal"/>
-
-    <font
         android:font="@font/muli_regular"
         android:fontStyle="normal"
         app:font="@font/muli_regular"

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
@@ -143,12 +144,21 @@ class NewsDetailActivity : BaseActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun online() {
         if (!isOnline) {
             isOnline = true
             dismissOfflineSnackBar()
+            if (newsBody.text.toString().isEmpty()) {
+                fetchDetails(itemId)
+            }
         }
-
     }
 
     override fun offline() {

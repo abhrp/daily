@@ -5,4 +5,6 @@
     <color name="colorPrimaryLight">#525252</color>
     <color name="colorAccent">#ffffff</color>
     <color name="colorText">#ffffff</color>
+    <color name="colorTextLight">#CBFFFFFF</color>
+    <color name="image_overlay">#80000000</color>
 </resources>

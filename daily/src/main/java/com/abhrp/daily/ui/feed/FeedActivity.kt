@@ -32,7 +32,7 @@ class FeedActivity : BaseActivity() {
         setUpSwipeLayout()
         feedViewModel = ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         observeFeed()
-//        fetchFeedData()
+        fetchFeedData()
     }
 
     private fun setUpSwipeLayout() {
@@ -70,7 +70,7 @@ class FeedActivity : BaseActivity() {
     }
 
     private fun fetchFeedData() {
-        feedViewModel.getFeed(true, true)
+        feedViewModel.getFeed(true, false)
     }
 
     override fun online() {

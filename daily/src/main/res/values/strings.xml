@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Daily</string>
+    <string name="news_article_thumbnail_image">News article thumbnail image</string>
 </resources>

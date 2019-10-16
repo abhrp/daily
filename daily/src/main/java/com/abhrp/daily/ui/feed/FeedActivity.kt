@@ -2,6 +2,7 @@ package com.abhrp.daily.ui.feed
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -38,9 +39,9 @@ class FeedActivity : BaseActivity() {
     @Inject
     lateinit var pixelHelper: PixelHelper
 
-    private var isOnline:Boolean = true
     private var paginationHandler: PaginationHandler? = null
 
+    private var isOnline:Boolean = true
     private var isLoading: Boolean = false
     private var firstPage: Boolean = true
     private var newRequest: Boolean = false
@@ -108,6 +109,7 @@ class FeedActivity : BaseActivity() {
                     firstPage = false
                     resource.data?.let { data ->
                         if(data.isNotEmpty()) {
+                            errorOrDone = false
                             val feedUIItemsList = data.map { feedUIMapper.mapToUIView(it) }
                             if (newRequest) {
                                 feedAdapter.refreshFeedItems()
@@ -116,6 +118,10 @@ class FeedActivity : BaseActivity() {
                             feedAdapter.addFeedItems(feedUIItemsList)
                         } else {
                             errorOrDone = true
+                            if (!isOnline) {
+                                refreshLayout.visibility = View.GONE
+                                noInternetIcon.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
@@ -137,6 +143,11 @@ class FeedActivity : BaseActivity() {
             isOnline = true
         }
         dismissOfflineSnackBar()
+        if (noInternetIcon.visibility == View.VISIBLE) {
+            noInternetIcon.visibility = View.GONE
+            refreshLayout.visibility = View.VISIBLE
+            fetchFeedData()
+        }
     }
 
     override fun offline() {
@@ -145,8 +156,8 @@ class FeedActivity : BaseActivity() {
     }
 
     private fun showOffLineSnackBar() {
-        offLineSnackbar = Snackbar.make(feedContainer, "No internet connection", Snackbar.LENGTH_INDEFINITE)
-        offLineSnackbar?.setAction("Dismiss") {
+        offLineSnackbar = Snackbar.make(feedContainer, getString(R.string.no_internet_message), Snackbar.LENGTH_INDEFINITE)
+        offLineSnackbar?.setAction(getString(R.string.action_dismiss)) {
             offLineSnackbar?.dismiss()
         }
         offLineSnackbar?.show()

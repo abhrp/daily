@@ -54,6 +54,7 @@ class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHo
 
             addImageToFeedItem(feedItem.thumbnail)
 
+            thumbnail.contentDescription = feedItem.headline
             sectionName.text = feedItem.sectionName
             elapsedTime.text = feedItem.date
             headline.text = feedItem.headline

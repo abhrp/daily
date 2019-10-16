@@ -88,7 +88,9 @@ class FeedCacheImpl @Inject constructor(private val dailyDatabase: DailyDatabase
      * @return Single<Boolean>
      */
     override fun isFeedItemDataCached(pageNo: Int): Single<Boolean> {
-        return dailyDatabase.getFeedDao().getFeedItems(pageNo).isEmpty.map { !it }
+        return dailyDatabase.getFeedDao().getFeedItems(pageNo).toSingle().map {
+           it.isNotEmpty()
+        }
     }
 
     /**

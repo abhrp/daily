@@ -56,7 +56,7 @@ class NewsFeedRepositoryImpl @Inject constructor(
      * @param isNewRequest Determines if it's a new request
      */
     private fun checkForNewRequest(pageNo: Int, isNewRequest: Boolean): Single<Int> {
-        return if (isNewRequest) feedCache.clearAllFeedItemData().andThen(Single.just(1)) else Single.just(
+        return if (isNewRequest) feedCache.clearAllFeedItemData().andThen(feedCache.clearAllCacheTime()).andThen(Single.just(1)) else Single.just(
             pageNo
         )
     }

@@ -112,6 +112,9 @@ dependencies {
     kapt devDependencies.roomCompiler
     implementation devDependencies.roomRx
 
+    implementation devDependencies.picasso
+    implementation devDependencies.picassoTransformations
+
     androidTestImplementation testDependencies.multidex
     androidTestImplementation testDependencies.multidexInstrumentation
     androidTestImplementation testDependencies.jUnit

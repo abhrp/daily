@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feedItemContainer"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:elevation="2dp">
+    android:layout_height="200dp"
+    android:background="@drawable/background_feed_item"
+    android:elevation="2dp"
+    android:padding="1dp">
 
-    <FrameLayout
-        android:id="@+id/imageContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/news_article_thumbnail_image"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/news_article_thumbnail_image"
-            tools:src="@drawable/feed_image"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/image_overlay"/>
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/feed_image" />
 
     <TextView
         android:id="@+id/sectionName"
@@ -36,15 +28,15 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
+        android:fontFamily="@font/muli_regular"
+        android:padding="4dp"
+        android:textColor="@color/colorText"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/colorText"
-        android:textSize="14sp"
-        android:fontFamily="@font/muli_regular"
-        android:padding="4dp"
-        tools:text="World News"/>
+        tools:text="World News" />
 
     <TextView
         android:id="@+id/headline"
@@ -71,12 +63,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
+        android:fontFamily="@font/muli_light"
+        android:padding="2dp"
+        android:textColor="@color/colorTextLight"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/colorTextLight"
-        android:fontFamily="@font/muli_light"
-        android:textSize="12sp"
-        android:padding="2dp"
-        tools:text="12-10-2019" />
+        tools:text="12.10.2019" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

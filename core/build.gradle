@@ -56,6 +56,11 @@ dependencies {
     implementation devDependencies.archExtensions
     kapt devDependencies.archCompiler
 
+    implementation devDependencies.support
+    implementation devDependencies.supportCompat
+    implementation devDependencies.recyclerView
+    implementation devDependencies.appCompat
+
     implementation devDependencies.kotlinJdk
     implementation devDependencies.coreKtx
     implementation devDependencies.fragmentKtx

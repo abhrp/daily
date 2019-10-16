@@ -95,6 +95,8 @@ ext {
             viewModelKtx          : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0",
 
             logger                : "com.orhanobut:logger:2.2.0",
+            picasso               : "com.squareup.picasso:picasso:2.71828",
+            picassoTransformations: "jp.wasabeef:picasso-transformations:2.2.1"
     ]
 
     testDependencies = [

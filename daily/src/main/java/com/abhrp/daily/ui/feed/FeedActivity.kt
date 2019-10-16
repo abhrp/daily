@@ -5,9 +5,15 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.abhrp.daily.R
 import com.abhrp.daily.common.util.AppLogger
+import com.abhrp.daily.core.components.VerticalItemDecoration
+import com.abhrp.daily.core.util.PixelHelper
 import com.abhrp.daily.di.ViewModelFactory
+import com.abhrp.daily.mapper.feed.FeedUIMapper
+import com.abhrp.daily.model.feed.FeedUIItem
 import com.abhrp.daily.presentation.state.ResourceState
 import com.abhrp.daily.presentation.viewmodel.feed.FeedViewModel
 import com.abhrp.daily.ui.base.BaseActivity
@@ -22,6 +28,13 @@ class FeedActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelFactory
     @Inject
     lateinit var logger: AppLogger
+    @Inject
+    lateinit var feedUIMapper: FeedUIMapper
+    @Inject
+    lateinit var feedAdapter: FeedAdapter
+
+    @Inject
+    lateinit var pixelHelper: PixelHelper
 
     private var isOnline:Boolean = true
 
@@ -32,7 +45,19 @@ class FeedActivity : BaseActivity() {
         setUpSwipeLayout()
         feedViewModel = ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
         observeFeed()
+        setUpClickListener()
+        setUpListView()
         fetchFeedData()
+    }
+
+    private fun setUpListView() {
+        feedListView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        feedListView.addItemDecoration(VerticalItemDecoration(pixelHelper.pixelFromDp(8)))
+        feedListView.adapter = feedAdapter
+    }
+
+    private fun setUpClickListener() {
+        feedAdapter.feedItemClickListener = ClickHandler()
     }
 
     private fun setUpSwipeLayout() {
@@ -53,14 +78,17 @@ class FeedActivity : BaseActivity() {
     }
 
     private fun observeFeed() {
-        feedViewModel.observeFeed().observe(this, Observer {data ->
-            when(data.status) {
+        feedViewModel.observeFeed().observe(this, Observer {resource ->
+            when(resource.status) {
                 ResourceState.LOADING -> {
-                    refreshLayout.isRefreshing = true
+
                 }
                 ResourceState.SUCCESS -> {
                     refreshLayout.isRefreshing = false
-                    logger.logDebug("Feed Items ${data.data.toString()}")
+                    resource.data?.let { data ->
+                        val feedUIItemsList = data.map { feedUIMapper.mapToUIView(it) }
+                        feedAdapter.addFeedItems(feedUIItemsList)
+                    }
                 }
                 ResourceState.ERROR -> {
                     refreshLayout.isRefreshing = false
@@ -81,5 +109,20 @@ class FeedActivity : BaseActivity() {
 
     override fun offline() {
         isOnline = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        feedAdapter.feedItemClickListener = null
+    }
+
+    private inner class ClickHandler: FeedItemClickListener {
+        /**
+         * Will be called when a user clicks on any news article
+         * @param feedItem FeedUIItem object which is clicked
+         */
+        override fun feedItemClicked(feedItem: FeedUIItem) {
+
+        }
     }
 }

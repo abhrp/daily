@@ -38,6 +38,7 @@ android {
     buildTypes {
 
         release {
+            buildConfigField "String", "API_KEY", "\"\""
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -46,6 +47,7 @@ android {
         }
 
         debug {
+            buildConfigField "String", "API_KEY", "\"\""
             versionNameSuffix ".debug"
             debuggable true
             minifyEnabled false

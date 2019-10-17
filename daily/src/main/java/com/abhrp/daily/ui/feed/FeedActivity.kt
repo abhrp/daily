@@ -3,8 +3,6 @@ package com.abhrp.daily.ui.feed
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,11 +16,12 @@ import com.abhrp.daily.core.util.PixelHelper
 import com.abhrp.daily.di.ViewModelFactory
 import com.abhrp.daily.mapper.feed.FeedUIMapper
 import com.abhrp.daily.model.feed.FeedUIItem
+import com.abhrp.daily.presentation.model.feed.FeedViewItem
+import com.abhrp.daily.presentation.state.Resource
 import com.abhrp.daily.presentation.state.ResourceState
 import com.abhrp.daily.presentation.viewmodel.feed.FeedViewModel
 import com.abhrp.daily.ui.base.BaseActivity
 import com.abhrp.daily.ui.detail.NewsDetailActivity
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
@@ -47,7 +46,7 @@ class FeedActivity : BaseActivity() {
 
     private var paginationHandler: PaginationHandler? = null
 
-    private var isOnline:Boolean = true
+    private var isOnline: Boolean = true
     private var isLoading: Boolean = false
     private var firstPage: Boolean = true
     private var newRequest: Boolean = false
@@ -60,7 +59,7 @@ class FeedActivity : BaseActivity() {
         setSupportActionBar(toolbar as Toolbar)
         setUpSwipeLayout()
         feedViewModel = ViewModelProviders.of(this, viewModelFactory).get(FeedViewModel::class.java)
-        observeFeed()
+        observeFeedChanges()
         setUpClickListener()
         setUpListView()
         fetchFeedData()
@@ -68,6 +67,7 @@ class FeedActivity : BaseActivity() {
 
     private fun setUpListView() {
         val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
         feedListView.layoutManager = layoutManager
         feedListView.addItemDecoration(VerticalItemDecoration(pixelHelper.pixelFromDp(8)))
 
@@ -84,6 +84,7 @@ class FeedActivity : BaseActivity() {
     }
 
     private fun setUpSwipeLayout() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             refreshLayout.setColorSchemeColors(resources.getColor(R.color.colorPrimary, null))
         } else {
@@ -102,44 +103,72 @@ class FeedActivity : BaseActivity() {
         }
     }
 
-    private fun observeFeed() {
-        feedViewModel.observeFeed().observe(this, Observer {resource ->
-            when(resource.status) {
+    private fun observeFeedChanges() {
+        feedViewModel.observeFeed().observe(this, Observer { resource ->
+            when (resource.status) {
                 ResourceState.LOADING -> {
-                    isLoading = true
+                    onFeedLoading()
                 }
                 ResourceState.SUCCESS -> {
-                    refreshLayout.isRefreshing = false
-                    isLoading = false
-                    firstPage = false
-                    resource.data?.let { data ->
-                        if(data.isNotEmpty()) {
-                            errorOrDone = false
-                            val feedUIItemsList = data.map { feedUIMapper.mapToUIView(it) }
-                            if (newRequest) {
-                                feedAdapter.refreshFeedItems()
-                                newRequest = false
-                            }
-                            feedAdapter.addFeedItems(feedUIItemsList)
-                        } else {
-                            errorOrDone = true
-                            if (!isOnline) {
-                                refreshLayout.visibility = View.GONE
-                                noInternetIcon.visibility = View.VISIBLE
-                            }
-                        }
-                    }
+                    onFeedLoadSuccess(resource)
                 }
                 ResourceState.ERROR -> {
-                    refreshLayout.isRefreshing = false
-                    if (isOnline) {
-                        showError(getString(R.string.error_news_feed))
-                    }
-                    isLoading = false
-                    errorOrDone = true
+                    logger.logError(resource.error)
+                    onFeedLoadFailure()
                 }
             }
         })
+    }
+
+    private fun onFeedLoadFailure() {
+        refreshLayout.isRefreshing = false
+        if (isOnline) {
+            showError(getString(R.string.error_news_feed))
+        }
+        isLoading = false
+        errorOrDone = true
+        feedAdapter.doneLoadingItems()
+    }
+
+    private fun onFeedLoadSuccess(resource: Resource<List<FeedViewItem>>) {
+        refreshLayout.isRefreshing = false
+
+        isLoading = false
+        firstPage = false
+
+        resource.data?.let { data ->
+            if (data.isNotEmpty()) {
+                handlePopulatedFeed(data)
+            } else {
+                handleEmptyFeed()
+            }
+        }
+    }
+
+    private fun handleEmptyFeed() {
+        errorOrDone = true
+        feedAdapter.doneLoadingItems()
+        if (!isOnline && feedAdapter.itemCount == 0) {
+            refreshLayout.visibility = View.GONE
+            noInternetIcon.visibility = View.VISIBLE
+        }
+    }
+
+    private fun handlePopulatedFeed(data: List<FeedViewItem>) {
+        errorOrDone = false
+        val feedUIItemsList = data.map { feedUIMapper.mapToUIView(it) }
+        if (newRequest) {
+            feedAdapter.refreshFeedItems()
+            newRequest = false
+        }
+        feedAdapter.addFeedItems(feedUIItemsList)
+    }
+
+    private fun onFeedLoading() {
+        isLoading = true
+        if (!firstPage && !newRequest) {
+            feedAdapter.isLoadingItems()
+        }
     }
 
     private fun fetchFeedData() {
@@ -147,10 +176,12 @@ class FeedActivity : BaseActivity() {
     }
 
     override fun online() {
-        if(!isOnline) {
+        if (!isOnline) {
             isOnline = true
         }
+
         dismissOfflineSnackBar()
+
         if (noInternetIcon.visibility == View.VISIBLE) {
             noInternetIcon.visibility = View.GONE
             refreshLayout.visibility = View.VISIBLE
@@ -172,11 +203,17 @@ class FeedActivity : BaseActivity() {
     }
 
     private fun startNewsDetailActivity(feedItem: FeedUIItem) {
-        val newIntent = NewsDetailActivity.newIntent(this, feedItem.id, feedItem.thumbnail, feedItem.headline, feedItem.sectionName)
+        val newIntent = NewsDetailActivity.newIntent(
+            this,
+            feedItem.id,
+            feedItem.thumbnail,
+            feedItem.headline,
+            feedItem.sectionName
+        )
         startActivity(newIntent)
     }
 
-    private inner class ClickHandler: FeedItemClickListener {
+    private inner class ClickHandler : FeedItemClickListener {
         /**
          * Will be called when a user clicks on any news article
          * @param feedItem FeedUIItem object which is clicked
@@ -186,11 +223,13 @@ class FeedActivity : BaseActivity() {
         }
     }
 
-    private inner class PaginationHandler(layoutManager: LinearLayoutManager): RecyclerViewPaginationListener(layoutManager) {
+    /**
+     * PaginationHandler will handle pagination events from recycler view scroll listener
+     */
+    private inner class PaginationHandler(layoutManager: LinearLayoutManager) :
+        RecyclerViewPaginationListener(layoutManager) {
         override fun onLoadNextPage() {
-            if (isOnline) {
-                fetchFeedData()
-            }
+            fetchFeedData()
         }
 
         override fun isLastPage(): Boolean {

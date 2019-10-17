@@ -1,7 +1,6 @@
 package com.abhrp.daily.di.modules
 
 import com.abhrp.daily.BuildConfig
-import com.abhrp.daily.common.constants.Keys
 import com.abhrp.daily.common.util.APIConfigProvider
 import com.abhrp.daily.common.util.BuildTypeProvider
 import com.abhrp.daily.common.util.DateProvider
@@ -15,7 +14,7 @@ class CommonProvider {
     @Singleton
     @Provides
     fun apiConfigProvider(): APIConfigProvider {
-        return APIConfigProvider(Keys.API_KEY)
+        return APIConfigProvider(BuildConfig.API_KEY)
     }
 
     @Singleton

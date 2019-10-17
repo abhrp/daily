@@ -14,27 +14,58 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.layout_feed_item.*
 import javax.inject.Inject
 
-class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
+/**
+ * Adapter for the feed on the first page. Has two viewholders, one for content, another to show a loading state in the footer.
+ * Both ViewHolders extend BaseViewHolder
+ */
+class FeedAdapter @Inject constructor() : RecyclerView.Adapter<FeedAdapter.BaseViewHolder>() {
+
+
+    companion object {
+        const val VIEW_TYPE_NORMAL = 1
+        const val VIEW_TYPE_LOADING = 2
+    }
 
     @Inject
     lateinit var pixelHelper: PixelHelper
 
     var feedItems = mutableListOf<FeedUIItem>()
     var feedItemClickListener: FeedItemClickListener? = null
+    var isLoading: Boolean = false
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_feed_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        return when(viewType) {
+            VIEW_TYPE_NORMAL -> {
+                 feedItemViewHolder(parent)
+            }
+            VIEW_TYPE_LOADING -> {
+                val itemView =
+                    LayoutInflater.from(parent.context).inflate(R.layout.layout_feed_progressbar, parent, false)
+                 ProgressViewHolder(itemView)
+            }
+            else -> {
+                 feedItemViewHolder(parent)
+            }
+        }
+    }
+
+    private fun feedItemViewHolder(parent: ViewGroup): ViewHolder {
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_feed_item, parent, false)
         return ViewHolder(itemView)
     }
 
     override fun getItemCount(): Int = feedItems.count()
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val feedUIItem = feedItems[position]
-        holder.bind(feedUIItem)
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        if (holder is ViewHolder) {
+            val feedUIItem = feedItems[position]
+            holder.bind(feedUIItem)
+        }
     }
 
     fun addFeedItems(newFeedItems: List<FeedUIItem>) {
+        doneLoadingItems()
         feedItems.addAll(newFeedItems)
         notifyDataSetChanged()
     }
@@ -44,7 +75,36 @@ class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHo
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView), LayoutContainer {
+    fun isLoadingItems() {
+        isLoading = true
+        feedItems.add(FeedUIItem("", "", "", "", ""))
+        notifyItemInserted(feedItems.count() - 1)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isLoading) {
+            if (position == feedItems.count() - 1) VIEW_TYPE_LOADING else VIEW_TYPE_NORMAL
+        } else {
+            VIEW_TYPE_NORMAL
+        }
+    }
+
+    fun doneLoadingItems() {
+        if (isLoading) {
+            isLoading = false
+            val position = feedItems.count() - 1
+            val feedUIItem = feedItems[position]
+            if (feedUIItem.id.isEmpty()) {
+                feedItems.remove(feedUIItem)
+                notifyItemRemoved(position)
+            }
+        }
+    }
+
+    open inner class BaseViewHolder(override val containerView: View) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer
+
+    inner class ViewHolder(override val containerView: View) : BaseViewHolder(containerView) {
 
         /**
          * Function to bind the data to the view elements
@@ -77,4 +137,6 @@ class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHo
             }
         }
     }
+
+    inner class ProgressViewHolder(override val containerView: View): BaseViewHolder(containerView)
 }

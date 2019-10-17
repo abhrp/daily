@@ -1,6 +1,8 @@
 package com.abhrp.daily.presentation.factory
 
+import com.abhrp.daily.domain.model.detail.NewsDetail
 import com.abhrp.daily.domain.model.feed.FeedItem
+import com.abhrp.daily.presentation.model.detail.DetailViewItem
 import com.abhrp.daily.presentation.model.feed.FeedViewItem
 
 object FeedItemFactory {
@@ -35,5 +37,13 @@ object FeedItemFactory {
 
     fun getFeedViewItem(): FeedViewItem {
         return FeedViewItem(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
+    }
+
+    fun getNewsDetail(): NewsDetail {
+        return NewsDetail(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
+    }
+
+    fun getDetailViewItem(): DetailViewItem {
+        return DetailViewItem(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
     }
 }

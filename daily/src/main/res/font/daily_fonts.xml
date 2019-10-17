@@ -6,17 +6,17 @@
         android:font="@font/muli_regular"
         android:fontStyle="normal"
         app:font="@font/muli_regular"
-        app:fontStyle="normal"/>
+        app:fontStyle="normal" />
 
     <font
         android:font="@font/muli_light"
         android:fontStyle="normal"
         app:font="@font/muli_light"
-        app:fontStyle="normal"/>
+        app:fontStyle="normal" />
 
     <font
         android:font="@font/muli_semibold"
         android:fontStyle="normal"
         app:font="@font/muli_semibold"
-        app:fontStyle="normal"/>
+        app:fontStyle="normal" />
 </font-family>

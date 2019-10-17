@@ -15,12 +15,4 @@ class NewsDetailMapper @Inject constructor(): EntityMapper<NewsDetailData, NewsD
         return NewsDetail(e.id, e.sectionName, e.headline, e.byline, e.body, e.thumbnail, e.publicationDate)
     }
 
-    /**
-     * Maps a domain model to entity(data) model
-     * @param d: Domain model
-     * @return E Entity(data) model
-     */
-    override fun mapToEntity(d: NewsDetail): NewsDetailData {
-        return NewsDetailData(d.id, d.sectionName, d.headline, d.byline, d.body, d.thumbnail, d.publicationDate)
-    }
 }

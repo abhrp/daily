@@ -255,8 +255,7 @@ class FeedCacheImplTest {
     }
 
     private fun stubGetFeedItems(pageNo: Int, data: List<CachedFeedItem>) {
-        val ret = if(data.isEmpty()) Maybe.empty() else Maybe.just(data)
-        Mockito.`when`(feedDao.getFeedItems(pageNo)).thenReturn(ret)
+        Mockito.`when`(feedDao.getFeedItems(pageNo)).thenReturn(Maybe.just(data))
     }
 
     private fun stubSaveFeedItems(cachedFeedItems: List<CachedFeedItem>) {

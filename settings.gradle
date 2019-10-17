@@ -1,2 +1,2 @@
 include ':daily', ':domain', ':data', ':remote', ':common', ':core', ':cache', ':presentation'
-rootProject.name='Daily'
+rootProject.name = 'Daily'

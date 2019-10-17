@@ -2,6 +2,7 @@ package com.abhrp.daily.cache.factory
 
 import com.abhrp.daily.cache.model.feed.CachedFeedItem
 import com.abhrp.daily.cache.model.feed.CachedTimeItem
+import com.abhrp.daily.data.model.detail.NewsDetailData
 import com.abhrp.daily.data.model.feed.FeedDataItem
 
 object FeedItemFactory {
@@ -53,4 +54,8 @@ object FeedItemFactory {
     }
 
     fun getCacheTime(pageNo: Int): CachedTimeItem = CachedTimeItem(pageNo, DataFactory.randomLong)
+
+    fun getNewsDataDetail(): NewsDetailData {
+        return NewsDetailData(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
+    }
 }

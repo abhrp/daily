@@ -11,16 +11,4 @@ class FeedItemEntityMapper @Inject constructor(): EntityMapper<FeedDataItem, Fee
         return FeedItem(e.id, e.sectionName, e.publicationDate, e.webUrl, e.headline, e.wordCount, e.thumbnail)
     }
 
-    override fun mapToEntity(d: FeedItem): FeedDataItem {
-        return FeedDataItem(
-            d.id,
-            d.sectionName,
-            d.publicationDate,
-            d.webUrl,
-            d.headline,
-            d.wordCount,
-            d.thumbnail,
-            0
-        )
-    }
 }

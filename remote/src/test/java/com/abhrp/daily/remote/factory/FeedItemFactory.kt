@@ -1,7 +1,9 @@
 package com.abhrp.daily.remote.factory
 
+import com.abhrp.daily.data.model.detail.NewsDetailData
 import com.abhrp.daily.data.model.feed.FeedDataItem
 import com.abhrp.daily.remote.model.BaseResponse
+import com.abhrp.daily.remote.model.detail.DetailResponse
 import com.abhrp.daily.remote.model.feed.FeedItem
 import com.abhrp.daily.remote.model.feed.FeedItemResponse
 import com.abhrp.daily.remote.model.feed.Fields
@@ -34,6 +36,10 @@ object FeedItemFactory {
         return BaseResponse(FeedItemResponse(DataFactory.randomInt, DataFactory.randomInt, DataFactory.randomString, getFeedItems(count)))
     }
 
+    fun getDetailsResponse(): BaseResponse<DetailResponse> {
+        return BaseResponse(DetailResponse(DataFactory.randomString, getFeedItem()))
+    }
+
 
     fun getFeedItems(count: Int): List<FeedItem> {
         val feedItems = mutableListOf<FeedItem>()
@@ -49,5 +55,9 @@ object FeedItemFactory {
 
     fun getFields(): Fields {
         return Fields(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
+    }
+
+    fun getNewsDataDetail(): NewsDetailData {
+        return NewsDetailData(DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString, DataFactory.randomString)
     }
 }

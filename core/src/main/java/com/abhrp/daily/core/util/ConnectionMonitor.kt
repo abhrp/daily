@@ -13,6 +13,9 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import javax.inject.Inject
 
+/**
+ * A custom LiveData class to monitor the network status of the device. Uses NetworkCallback for Lollipop and above
+ */
 class ConnectionMonitor @Inject constructor(private val context: Context): LiveData<Boolean>() {
     companion object {
         const val CONNECTION_ACTION = "com.abhrp.daily.NETWORK_ACTION"

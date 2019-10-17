@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import javax.inject.Inject
 
+/**
+ * A seperate shared preferences class to store single values.
+ */
 class DailySharedPreferences @Inject constructor(context: Context) {
     companion object {
         private const val PREF_NAME = "com.github.abhrp.daily.cache.preferences"

@@ -28,6 +28,9 @@ import kotlinx.android.synthetic.main.content_detail.*
 import kotlinx.android.synthetic.main.layout_feed_item.*
 import javax.inject.Inject
 
+/**
+ * NewsDetailActivity - Activity for the detail class
+ */
 class NewsDetailActivity : BaseActivity() {
 
     companion object {
@@ -135,6 +138,7 @@ class NewsDetailActivity : BaseActivity() {
 
     private fun addHeaderImage() {
         if(imageUrl.isNotEmpty()) {
+            @Suppress("DEPRECATION")
             Picasso.get()
                 .load(imageUrl)
                 .placeholder(R.drawable.placeholder)

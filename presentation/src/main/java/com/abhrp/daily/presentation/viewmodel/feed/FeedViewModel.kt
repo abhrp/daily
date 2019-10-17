@@ -12,6 +12,11 @@ import com.abhrp.daily.presentation.state.ResourceState
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
+/**
+ * FeedViewModel - ViewModel class for the feed screen of the app.
+ * @param getFeed - GetFeed usecase
+ * @param viewItemMapper - Mapper to convert domain classes to view classes
+ */
 class FeedViewModel @Inject constructor(private val getFeed: GetFeed, private val viewItemMapper: FeedViewItemMapper): ViewModel() {
 
     private val feedLiveData = MutableLiveData<Resource<List<FeedViewItem>>>()

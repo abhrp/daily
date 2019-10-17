@@ -13,6 +13,11 @@ import com.abhrp.daily.presentation.state.ResourceState
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
+/**
+ * NewsDetailViewModel - ViewModel class for the details screen
+ * @param getNewsDetail - GetNewsDetail use case class
+ * @param mapper - Mapper to convert domain classes to view classes
+ */
 class NewsDetailViewModel @Inject constructor(private val getNewsDetail: GetNewsDetail, private val mapper: DetailViewMapper): ViewModel() {
 
     @Inject

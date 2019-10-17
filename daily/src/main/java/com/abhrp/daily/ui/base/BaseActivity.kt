@@ -11,6 +11,9 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
+/**
+ * BaseActivity - Base class for all activities. Will handle offline statuses
+ */
 abstract class BaseActivity: DaggerAppCompatActivity() {
 
     @Inject

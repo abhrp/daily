@@ -26,6 +26,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
+/**
+ * FeedActivity - Activity for first screen of the app
+ */
 class FeedActivity : BaseActivity() {
 
     @Inject

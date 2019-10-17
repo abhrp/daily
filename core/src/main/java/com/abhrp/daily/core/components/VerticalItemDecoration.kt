@@ -4,6 +4,9 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Custom ItemDecoration class to add vertical spacing between recycler view elements.
+ */
 class VerticalItemDecoration(private val verticalSpace: Int) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

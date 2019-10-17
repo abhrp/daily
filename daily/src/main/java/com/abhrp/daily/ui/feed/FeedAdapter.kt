@@ -66,6 +66,7 @@ class FeedAdapter @Inject constructor(): RecyclerView.Adapter<FeedAdapter.ViewHo
 
         private fun addImageToFeedItem(imageUrl: String) {
             if (imageUrl.isNotEmpty()) {
+                @Suppress("DEPRECATION")
                 Picasso.get()
                     .load(imageUrl)
                     .placeholder(R.drawable.placeholder)

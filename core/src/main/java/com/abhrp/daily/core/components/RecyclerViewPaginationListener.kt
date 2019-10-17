@@ -3,6 +3,9 @@ package com.abhrp.daily.core.components
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Custom RecyclerView scrolllistener to handle pagination
+ */
 abstract class RecyclerViewPaginationListener(private val linearLayoutManager: LinearLayoutManager): RecyclerView.OnScrollListener() {
     val PAGE_SIZE = 10
 

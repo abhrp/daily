@@ -7,6 +7,11 @@ import com.abhrp.daily.domain.usecase.SingleUseCase
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * GetNewsDetail: Use case class that will be executed when user clicks on any news item on the first screen.
+ * @param postExecutionThread
+ * @param newsDetailRepository
+ */
 class GetNewsDetail @Inject constructor(postExecutionThread: PostExecutionThread, private val newsDetailRepository: NewsDetailRepository): SingleUseCase<NewsDetail?, GetNewsDetail.Params>(postExecutionThread) {
 
     override fun buildUseCaseObservable(params: Params?): Single<NewsDetail?> {

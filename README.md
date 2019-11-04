@@ -1,4 +1,8 @@
 # daily
+
+![Screenshot](daily.png)
+
+
 This is a news app with two screens. The api used is the [Guardian API](https://open-platform.theguardian.com/)
 
 The first screen shows a feed of news items and the second screen can be opened to read the article in detail. 
